@@ -23,6 +23,10 @@
    |待制作包种类       |OS_TYPE    |miui                                                                      |
    |打包名称           |REPACK_NAME|SGSI.zip                                                                  |
 
+3. 开始制作
+   
+   点击右上角的Star，即可触发Action开始制作
+
 ## 后续步骤
 
 由于[Github large binaries](https://docs.github.com/en/github/managing-large-files/working-with-large-files/distributing-large-binaries)限制，制作后的SGSI若超过**2GB**则**无法上传**，因此本Action将自动根据制作后的SGSI大小选择**直接上传**/**分卷上传**
