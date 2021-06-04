@@ -34,6 +34,12 @@ jobs:
         run: |
           git clone https://gitlab.com/Xayah/Tool-SGSI-build $GITHUB_WORKSPACE/Tool-SGSI-build
 
+      - name: 替换自定义精简内容...
+        run: |
+          sudo rm -rf $GITHUB_WORKSPACE/Tool-SGSI-build/11/apps_clean
+          sudo cp apps_clean $GITHUB_WORKSPACE/Tool-SGSI-build/11/apps_clean
+          sudo chmod 777 -R $GITHUB_WORKSPACE/Tool-SGSI-build
+
       - name: 下载ROM...
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
@@ -76,7 +82,7 @@ jobs:
           ls upload
           echo "--------------------------------------"
 
-      - name: 上传至Release
+      - name: 上传至Release...
         uses: ncipollo/release-action@v1.8.0
         with:
           artifacts: "${{ github.workspace }}/Tool-SGSI-build/11/upload/*"
