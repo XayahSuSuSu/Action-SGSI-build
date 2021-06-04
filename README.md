@@ -1,24 +1,41 @@
-# SGSI-build-action
+# Action-SGSI-build
 
-**不要直接在此仓库跑包，跑包请fork此仓库到然后去你自己的GitHub里再跑 ！**  
-**Don't build directly in this warehouse, please fork this warehouse first, and then go to your own warehouse to build!**
+> 适配Android R
+>
+> 修复制作超过2G的SGSI无法上传Release的问题
 
-## 使用方法:
+## 快速开始
+
+1. Fork此仓库
+   
+   首次使用时，你需要先**Fork此仓库**，然后再进行参数配置
+
+2. 配置参数
+
+   假设你此时已经Fork本仓库并进入自己的仓库，点击菜单中 **Settings - Secrets - New repository secret**
+   
+   按下表新建加密环境变量
+
+   |说明               |Name       |Value(按你自己的需求填写)                                                 |
+   |:------:           |:------:   | :------------------------:                                               |
+   |待制作包链接       |ROM_URL    |https://hugeota.d.miui.com/21.5.31/miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip|
+   |待制作包名称       |ZIP_NAME   |miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip                                   |
+   |待制作包种类       |OS_TYPE    |miui                                                                      |
+   |打包名称           |REPACK_NAME|SGSI.zip                                                                  |
+
+## 后续步骤
+
+由于[Github large binaries](https://docs.github.com/en/github/managing-large-files/working-with-large-files/distributing-large-binaries)限制，制作后的SGSI若超过**2GB**则**无法上传**，因此本Action将自动根据制作后的SGSI大小选择**直接上传**/**分卷上传**
+
+若以分卷方式上传，请下载每个分卷后手动合卷解压
+
 ```
-1. fork此仓库
-2. 编辑SGSI_Build.yml:
-     ROM_URL: 为你的下载连接 
-     ZIP_NAME: 为你下载的包名 
-     OS_TYPE: 为你要跑的rom类型  
-     BUILD_TYPE: 为你需要build的类型(ab|a-only) 
-     REPACK_NAME: 为你需要打包的包名
-3. 修改完毕后依次点击Start commit -> Actions选项卡 -> Star -> SGSI-Build
+cat ${fileName}*>${fileName}.tar.gz    # 将分卷文件fileName*合并
+tar xzvf ${fileName}.tar.gz            # 解压
 ```
- 
-## 输出结果
-如果将rom上传至Release下载 请修改yml的 upload_action-gh-release: 'false' -> 'true' 
-每次构建成功后山除掉 自动上传的的版本否则下次将会上传失败
-结果在[Release](../../releases)下载
 
-如果将rom上传至WeTransfer下载 清修改yml的 upload_WeTransfer: 'false' -> 'true'
-上传好后的下载链接，留意输出结果 Download Link:
+## 版权与致谢
+
+本项目受 [SGSI-build-action](https://github.com/xiaoxindada/SGSI-build-action) 项目启发。
+
+感谢[xiaoxindada](https://github.com/xiaoxindada)的开源。

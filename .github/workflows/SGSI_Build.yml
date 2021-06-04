@@ -1,96 +1,85 @@
-# This is a basic workflow to help you get started with Actions
-
 name: SGSI_Build
 
 on:
   watch:
     types: [started]
-    
-env:              
-  ROM_URL: 'https://dl.google.com/developers/android/sc/images/ota/redfin-ota-spp2.210219.008-3d61e529.zip'
-  ZIP_NAME: 'update.zip'
-  OS_TYPE: 'Pixel'
-  BUILD_TYPE: 'ab'
-  REPACK_NAME: 'SGSI.zip'
-  VERSION: '12'
-  upload_WeTransfer: 'true'
-  upload_action-gh-release: 'false'
-  SETUP: 'true'
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-       - name: Checkout
-         uses: actions/checkout@main
-       
-       - name: Clean Up
-         run: |       
-           docker rmi `docker images -q`
-           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-           sudo -E apt-get update
-           sudo -E apt-get -y autoremove --purge
-           sudo -E apt-get clean
-           df -h
-           
-       - name: Setting up the SPICES
-         run: |
-            sudo apt-get install -y git wget git zip unzip curl axel
+      - name: 获取本仓库源码...
+        uses: actions/checkout@main
 
-       - name: Cloning...
-         run: |
-             git clone https://github.com/xiaoxindada/SGSI-build-tool.git -b 12 $GITHUB_WORKSPACE/SGSI-build-tool
-           
-       - name: Download zip...
-         run: |
-            cd $GITHUB_WORKSPACE/SGSI-build-tool
-            mkdir ./tmp
-            axel -n $(nproc) -U "Mozilla/5.0" $ROM_URL -o "$GITHUB_WORKSPACE/SGSI-build-tool/tmp/$ZIP_NAME" || wget -U "Mozilla/5.0" $ROM_URL -O "$GITHUB_WORKSPACE/SGSI-build-tool/tmp/$ZIP_NAME"
-            echo "zip_file: $(ls "$GITHUB_WORKSPACE/SGSI-build-tool/tmp/")"
-            
-       - name: Setup Tool Utils...
-         if: env.SETUP == 'true'
-         run: |
-            sudo sed -i 's/USE_MIRROR_FOR_PIP\=true/USE_MIRROR_FOR_PIP\=false/' $GITHUB_WORKSPACE/SGSI-build-tool/setup.sh
-            sudo bash $GITHUB_WORKSPACE/SGSI-build-tool/setup.sh
-            sudo apt-get -y --purge remove "adoptopenjdk-11-hotspot"
-            java -version
-            
-       - name: Building AB DEVICES SGSI...
-         if: env.BUILD_TYPE == 'AB' || env.BUILD_TYPE == 'ab'
-         run: |
-            sudo bash $GITHUB_WORKSPACE/SGSI-build-tool/make.sh --AB $OS_TYPE $ZIP_NAME --fix-bug
+      - name: 获取变量配置...
+        run: |
+          echo "BUILD_TIME=$(date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
 
-       - name: Building A-only DEVICES SGSI...
-         if: env.BUILD_TYPE == 'a-only'
-         run: |
-            sudo bash $GITHUB_WORKSPACE/SGSI-build-tool/make.sh --a-only $OS_TYPE $ZIP_NAME --fix-bug     
+      - name: 清理环境...
+        run: |
+          docker rmi `docker images -q`
+          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get update
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get clean
+          df -h
 
-       - name: Repack output file ...
-         run: |            
-             cd $GITHUB_WORKSPACE/SGSI-build-tool
-             pwd
-             zip -r $REPACK_NAME ./SGSI/*
-             ls "$REPACK_NAME"
+      - name: 配置环境...
+        run: |
+          sudo apt-get install -y git wget git zip unzip curl axel
 
-       - name: Upload SGSI to WeTransfer...
-         if: env.upload_WeTransfer == 'true' 
-         run: |
-           cd $GITHUB_WORKSPACE/SGSI-build-tool
-           pwd
-           ls "$REPACK_NAME"
-           curl -sL https://git.io/file-transfer | sh
-           ./transfer wet ./$REPACK_NAME
+      - name: 获取SGSI工具...
+        run: |
+          git clone https://gitlab.com/Xayah/Tool-SGSI-build $GITHUB_WORKSPACE/Tool-SGSI-build
 
-       - name: Upload SGSI to action-gh-release...
-         if: env.upload_action-gh-release == 'true'
-         uses: softprops/action-gh-release@v1
-         with:
-           files: ${{ github.workspace }}/SGSI-build-tool/${{ env.REPACK_NAME }}
-           name: xiaoxinSGSI-${{ env.OS_TYPE }}-${{ env.BUILD_TYPE }}-Android${{ env.VERSION }}-unpack
-           tag_name: 12
-           #body: Use actions auto bulid
-         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}           
+      - name: 下载ROM...
+        run: |
+          cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
+          mkdir ./tmp
+          axel -n $(nproc) -U "Mozilla/5.0" ${{ secrets.ROM_URL }} -o "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ secrets.ZIP_NAME }}" || wget -U "Mozilla/5.0" ${{ secrets.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ secrets.ZIP_NAME }}"
+          echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/")"
+
+      - name: 配置工具环境...
+        if: env.SETUP == 'true'
+        run: |
+          sudo sed -i 's/USE_MIRROR_FOR_PIP\=true/USE_MIRROR_FOR_PIP\=false/' $GITHUB_WORKSPACE/Tool-SGSI-build/setup.sh
+          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/setup.sh
+          sudo apt-get -y --purge remove "adoptopenjdk-11-hotspot"
+          java -version
+
+      - name: 制作AB型GSI...
+        run: |
+          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/11/make.sh AB << EOF
+          ${{ secrets.ZIP_NAME }}
+          y
+          y
+          ${{ secrets.OS_TYPE }}
+          y
+
+      - name: 打包...
+        run: |
+          cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
+          pwd
+          zip -r ${{ secrets.REPACK_NAME }} SGSI/*
+          ls "${{ secrets.REPACK_NAME }}"
+          echo "--------------------------------------"
+          ls
+          echo "--------------------------------------"
+          mkdir upload
+          echo "--------------------------------------"
+          ls upload
+          echo "--------------------------------------"
+          if [ $(ls -l ${{ secrets.REPACK_NAME }} | awk '{print $5}') -gt 2147483647 ]; then tar cvzpf - ${{ secrets.REPACK_NAME }} | split -d -b 1024m - upload/${{ secrets.REPACK_NAME }}; else mv ${{ secrets.REPACK_NAME }} upload/${{ secrets.REPACK_NAME }}; fi
+          echo "--------------------------------------"
+          ls upload
+          echo "--------------------------------------"
+
+      - name: 上传至Release
+        uses: ncipollo/release-action@v1.8.0
+        with:
+          artifacts: "${{ github.workspace }}/Tool-SGSI-build/11/upload/*"
+          tag: "${{ secrets.REPACK_NAME }}_${{ env.BUILD_TIME }}"
+          body: "${{ secrets.REPACK_NAME }}_${{ env.BUILD_TIME }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
