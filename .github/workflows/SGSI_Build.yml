@@ -1,8 +1,27 @@
 name: SGSI_Build
 
 on:
-  watch:
-    types: [started]
+  workflow_dispatch:
+    inputs:
+      ROM_URL:
+        description: 'ROM_URL'
+        required: true
+        default: 'https://hugeota.d.miui.com/21.5.31/miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+      ZIP_NAME:
+        description: 'ZIP_NAME'
+        required: true
+        default: 'miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+      OS_TYPE:
+        description: 'OS_TYPE'
+        required: true
+        default: 'miui'
+      REPACK_NAME:
+        description: 'REPACK_NAME'
+        required: true
+        default: 'SGSI.zip'
+
+
+
 
 jobs:
   build:
