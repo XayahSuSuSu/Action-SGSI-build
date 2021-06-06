@@ -63,7 +63,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
           mkdir ./tmp
-          axel -n $(nproc) -U "Mozilla/5.0" ${{ secrets.ROM_URL }} -o "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ secrets.ZIP_NAME }}" || wget -U "Mozilla/5.0" ${{ secrets.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ secrets.ZIP_NAME }}"
+          axel -n $(nproc) -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -o "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ github.event.inputs.ZIP_NAME }}" || wget -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ github.event.inputs.ZIP_NAME }}"
           echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/")"
 
       - name: 配置工具环境...
@@ -77,18 +77,18 @@ jobs:
       - name: 制作AB型GSI...
         run: |
           sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/11/make.sh AB << EOF
-          ${{ secrets.ZIP_NAME }}
+          ${{ github.event.inputs.ZIP_NAME }}
           y
           y
-          ${{ secrets.OS_TYPE }}
+          ${{ github.event.inputs.OS_TYPE }}
           y
 
       - name: 打包...
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
           pwd
-          zip -r ${{ secrets.REPACK_NAME }} SGSI/*
-          ls "${{ secrets.REPACK_NAME }}"
+          zip -r ${{ github.event.inputs.REPACK_NAME }} SGSI/*
+          ls "${{ github.event.inputs.REPACK_NAME }}"
           echo "--------------------------------------"
           ls
           echo "--------------------------------------"
@@ -96,7 +96,7 @@ jobs:
           echo "--------------------------------------"
           ls upload
           echo "--------------------------------------"
-          if [ $(ls -l ${{ secrets.REPACK_NAME }} | awk '{print $5}') -gt 2147483647 ]; then tar cvzpf - ${{ secrets.REPACK_NAME }} | split -d -b 1024m - upload/${{ secrets.REPACK_NAME }}; else mv ${{ secrets.REPACK_NAME }} upload/${{ secrets.REPACK_NAME }}; fi
+          if [ $(ls -l ${{ github.event.inputs.REPACK_NAME }} | awk '{print $5}') -gt 2147483647 ]; then tar cvzpf - ${{ github.event.inputs.REPACK_NAME }} | split -d -b 1024m - upload/${{ github.event.inputs.REPACK_NAME }}; else mv ${{ github.event.inputs.REPACK_NAME }} upload/${{ github.event.inputs.REPACK_NAME }}; fi
           echo "--------------------------------------"
           ls upload
           echo "--------------------------------------"
@@ -105,6 +105,6 @@ jobs:
         uses: ncipollo/release-action@v1.8.0
         with:
           artifacts: "${{ github.workspace }}/Tool-SGSI-build/11/upload/*"
-          tag: "${{ secrets.REPACK_NAME }}_${{ env.BUILD_TIME }}"
-          body: "${{ secrets.REPACK_NAME }}_${{ env.BUILD_TIME }}"
+          tag: "${{ github.event.inputs.REPACK_NAME }}_${{ env.BUILD_TIME }}"
+          body: "${{ github.event.inputs.REPACK_NAME }}_${{ env.BUILD_TIME }}"
           token: ${{ secrets.GITHUB_TOKEN }}
