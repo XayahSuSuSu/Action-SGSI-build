@@ -14,9 +14,7 @@
 
 2. 配置参数
 
-   假设你此时已经Fork本仓库并进入自己的仓库，点击菜单中 **Settings - Secrets - New repository secret**
-   
-   按下表新建加密环境变量
+   假设你此时已经Fork本仓库并进入自己的仓库，点击菜单中 **Actions - 左栏All workflows下的SGSI_Build - 右侧 Run workflow 灰色按钮 - 填写相应参数**
 
    |说明               |Name       |Value(按你自己的需求填写)                                                 |
    |:------:           |:------:   | :------------------------:                                               |
@@ -27,7 +25,7 @@
 
 3. 开始制作
    
-   点击右上角的Star，即可触发Action开始制作
+   点击Run workflow绿色按钮即可开始制作
 
 ## 个性化配置
 
