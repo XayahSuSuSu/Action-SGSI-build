@@ -55,16 +55,16 @@ jobs:
 
       - name: 替换自定义精简内容...
         run: |
-          sudo rm -rf $GITHUB_WORKSPACE/Tool-SGSI-build/11/apps_clean
-          sudo cp -r apps_clean $GITHUB_WORKSPACE/Tool-SGSI-build/11/apps_clean
+          sudo rm -rf $GITHUB_WORKSPACE/Tool-SGSI-build/apps_clean
+          sudo cp -r apps_clean $GITHUB_WORKSPACE/Tool-SGSI-build/apps_clean
           sudo chmod 777 -R $GITHUB_WORKSPACE/Tool-SGSI-build
 
       - name: 下载ROM...
         run: |
-          cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
+          cd $GITHUB_WORKSPACE/Tool-SGSI-build
           mkdir ./tmp
-          axel -n $(nproc) -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -o "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ github.event.inputs.ZIP_NAME }}" || wget -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/${{ github.event.inputs.ZIP_NAME }}"
-          echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/11/tmp/")"
+          axel -n $(nproc) -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -o "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}" || wget -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}"
+          echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/")"
 
       - name: 配置工具环境...
         if: env.SETUP == 'true'
@@ -76,7 +76,7 @@ jobs:
 
       - name: 制作AB型GSI...
         run: |
-          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/11/make.sh AB << EOF
+          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/make.sh AB << EOF
           ${{ github.event.inputs.ZIP_NAME }}
           y
           y
@@ -85,7 +85,7 @@ jobs:
 
       - name: 打包...
         run: |
-          cd $GITHUB_WORKSPACE/Tool-SGSI-build/11
+          cd $GITHUB_WORKSPACE/Tool-SGSI-build
           pwd
           zip -r ${{ github.event.inputs.REPACK_NAME }} SGSI/*
           ls "${{ github.event.inputs.REPACK_NAME }}"
@@ -104,7 +104,7 @@ jobs:
       - name: 上传至Release...
         uses: ncipollo/release-action@v1.8.0
         with:
-          artifacts: "${{ github.workspace }}/Tool-SGSI-build/11/upload/*"
+          artifacts: "${{ github.workspace }}/Tool-SGSI-build/upload/*"
           tag: "${{ github.event.inputs.REPACK_NAME }}_${{ env.BUILD_TIME }}"
           body: "${{ github.event.inputs.REPACK_NAME }}_${{ env.BUILD_TIME }}"
           token: ${{ secrets.GITHUB_TOKEN }}

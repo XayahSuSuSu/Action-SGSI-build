@@ -5,6 +5,8 @@
 > 修复制作超过2G的SGSI无法上传Release的问题
 >
 > 支持自定义精简功能
+>
+> 当前版本: [v11-1.8](https://gitlab.com/Xayah/Tool-SGSI-build)
 
 ## 快速开始
 
