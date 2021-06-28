@@ -6,7 +6,7 @@
 >
 > 支持自定义精简功能
 >
-> 当前版本: [v11-1.8](https://gitlab.com/Xayah/Tool-SGSI-build)
+> 当前版本: [v11](https://github.com/xiaoxindada/SGSI-build-tool/tree/11)
 
 ## 快速开始
 

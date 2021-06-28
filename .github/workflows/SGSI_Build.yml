@@ -51,7 +51,7 @@ jobs:
 
       - name: 获取SGSI工具...
         run: |
-          git clone https://gitlab.com/Xayah/Tool-SGSI-build $GITHUB_WORKSPACE/Tool-SGSI-build
+          git clone --recurse-submodules https://github.com/xiaoxindada/SGSI-build-tool.git -b 11 $GITHUB_WORKSPACE/Tool-SGSI-build
 
       - name: 替换自定义精简内容...
         run: |
