@@ -63,7 +63,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build
           mkdir ./tmp
-          axel -n $(nproc) -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -o "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}" || wget -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}"
+          wget ${{ github.event.inputs.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}"
           echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/")"
 
       - name: 配置工具环境...
