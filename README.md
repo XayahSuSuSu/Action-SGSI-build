@@ -7,6 +7,8 @@
 > 支持自定义精简功能
 >
 > 当前版本: [v11](https://github.com/xiaoxindada/SGSI-build-tool/tree/11)
+>
+> 注意：如果提示失败并在 下载ROM... 时出现 Error: Process completed with exit code 127. 系服务器网络问题，请重试
 
 ## 快速开始
 
