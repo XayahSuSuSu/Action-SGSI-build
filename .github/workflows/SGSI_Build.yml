@@ -6,19 +6,19 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://ip2341096666.out.azhimalayanvh.com/Firmware/Flyme/meizu18_Pro/9.0.1.2/cn/20210527000410/acc3dace/update.zip?ali_redirect_domain=firmware.meizu.com'
+        default: 'https://hugeota.d.miui.com/21.8.11/miui_TUCANA_21.8.11_9ab8f07761_11.0.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'update.zip'
+        default: 'miui_TUCANA_21.8.11_9ab8f07761_11.0.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
-        default: 'flyme'
+        default: 'miui'
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'Flyme9_18P_SGSI.zip'
+        default: 'miui9ccpro_SGSI.zip'
 
 
 
