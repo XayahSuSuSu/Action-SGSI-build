@@ -6,7 +6,7 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://ip2341096666.out.azhimalayanvh.com/Firmware/Flyme/meizu18_Pro/9.0.1.2/cn/20210527000410/acc3dace/update.zip?ali_redirect_domain=firmware.meizu.com'
+        default: 'https://bigota.d.miui.com/V12.5.3.0.RGGINXM/miui_BEGONIAININGlobal_V12.5.3.0.RGGINXM_cd8489fd26_11.0.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
@@ -14,11 +14,11 @@ on:
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
-        default: 'flyme'
+        default: 'miui'
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'Flyme9_18P_SGSI.zip'
+        default: 'Miui_RN8Pro_SGSI.zip'
 
 
 
