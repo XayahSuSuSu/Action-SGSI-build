@@ -6,7 +6,7 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://hasibr.adeez.workers.dev/AbhiX_ROG_lavender_21.8.18_11.zip'
+        default: 'https://mirror.amzc-index-public.workers.dev/0:/MMX_2.2.0_lavender_21.8.25_v12-11.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
@@ -18,7 +18,7 @@ on:
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'AbhiX_ROG_lavender_21.8.18_11.zip'
+        default: 'MMX_2.2.0_lavender_21.8.25_v12-11.zip'
 
 
 
