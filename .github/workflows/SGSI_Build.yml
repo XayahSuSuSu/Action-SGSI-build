@@ -18,7 +18,7 @@ on:
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'Asus_Rog_Phone_3_A11.zip'
+        default: 'Asus_Rog_Phone_3-11.zip'
 
 
 
