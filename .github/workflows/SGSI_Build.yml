@@ -18,7 +18,7 @@ on:
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'Asus_Rog_Phone_3-11.zip'
+        default: 'WW_ZS661KS_18.0410.2106.138_M3.35.19.16-ASUS_1.1.5_Phone-user.raw.zip'
 
 
 
