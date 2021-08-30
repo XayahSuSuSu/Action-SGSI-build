@@ -45,10 +45,10 @@ Due to the limitation of [Github large binaries](https://docs.github.com/en/gith
 
 If uploading in sub-volumes, please download each sub-volume and manually unzip it
 
-
-cat ${fileName}*>${fileName}.tar.gz # merge the sub-volume file fileName*
-tar xzvf ${fileName}.tar.gz # Unzip
-
+```
+cat ${fileName}*>${fileName}.tar.gz    # merge the sub-volume file fileName*
+tar xzvf ${fileName}.tar.gz            # Unzip
+```
 
 ## Copyright and Acknowledgements
 
