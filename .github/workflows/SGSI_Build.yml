@@ -6,7 +6,7 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://ip2341096666.out.azhimalayanvh.com/Firmware/Flyme/meizu18_Pro/9.0.1.2/cn/20210527000410/acc3dace/update.zip?ali_redirect_domain=firmware.meizu.com'
+        default: 'https://www.priiiiyocloud.workers.dev/0://WW_ZS661KS_18.0410.2106.138_M3.35.19.16-ASUS_1.1.5_Phone-user.raw.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
@@ -14,11 +14,11 @@ on:
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
-        default: 'flyme'
+        default: 'nubia'
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'Flyme9_18P_SGSI.zip'
+        default: 'WW_ZS661KS_18.0410.2106.138_M3.35.19.16-ASUS_1.1.5_Phone-user.raw.zip'
 
 
 
@@ -28,14 +28,14 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: 获取本仓库源码...
+      - name: Get the source code of this warehouse...
         uses: actions/checkout@main
 
-      - name: 获取变量配置...
+      - name: Get variable configuration...
         run: |
           echo "BUILD_TIME=$(date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
 
-      - name: 清理环境...
+      - name: Clean up the environment‌‌...
         run: |
           docker rmi `docker images -q`
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
@@ -45,35 +45,35 @@ jobs:
           sudo -E apt-get clean
           df -h
 
-      - name: 配置环境...
+      - name: Configuration Environment‌‌...
         run: |
           sudo apt-get install -y git wget git zip unzip curl axel
 
-      - name: 获取SGSI工具...
+      - name: Get the SGSI tool‌‌...
         run: |
           git clone --recurse-submodules https://github.com/xiaoxindada/SGSI-build-tool.git -b 11 $GITHUB_WORKSPACE/Tool-SGSI-build
 
-      - name: 替换自定义精简内容...
+      - name: Replace custom condensed content...
         run: |
           sudo rm -rf $GITHUB_WORKSPACE/Tool-SGSI-build/apps_clean
           sudo cp -r apps_clean $GITHUB_WORKSPACE/Tool-SGSI-build/apps_clean
           sudo chmod 777 -R $GITHUB_WORKSPACE/Tool-SGSI-build
 
-      - name: 下载ROM...
+      - name: Download ROM‌‌...
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build
           mkdir ./tmp
           curl "${{ github.event.inputs.ROM_URL }}" --output "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}"
           echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/")"
 
-      - name: 配置工具环境...
+      - name: Configuration tool environment...
         run: |
           sudo sed -i 's/USE_MIRROR_FOR_PIP\=true/USE_MIRROR_FOR_PIP\=false/' $GITHUB_WORKSPACE/Tool-SGSI-build/setup.sh
           sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/setup.sh
           sudo apt-get -y --purge remove "adoptopenjdk-11-hotspot"
           java -version
 
-      - name: 制作AB型GSI...
+      - name: Make AB type GSI‌‌...
         run: |
           sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/make.sh AB << EOF
           ${{ github.event.inputs.ZIP_NAME }}
@@ -82,7 +82,7 @@ jobs:
           ${{ github.event.inputs.OS_TYPE }}
           y
 
-      - name: 打包...
+      - name: Packing...
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build
           pwd
@@ -100,7 +100,7 @@ jobs:
           ls upload
           echo "--------------------------------------"
 
-      - name: 上传至Release...
+      - name: Upload to Release‌‌...
         uses: ncipollo/release-action@v1.8.0
         with:
           artifacts: "${{ github.workspace }}/Tool-SGSI-build/upload/*"
