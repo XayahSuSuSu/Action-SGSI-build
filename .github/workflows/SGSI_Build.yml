@@ -6,7 +6,7 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://mirror.amzc-index-public.workers.dev/0:/MMX_2.2.0_lavender_21.8.25_v12-11.zip'
+        default: 'https://www.priiiiyocloud.workers.dev/0://WW_ZS661KS_18.0410.2106.138_M3.35.19.16-ASUS_1.1.5_Phone-user.raw.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
@@ -14,11 +14,11 @@ on:
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
-        default: 'miui'
+        default: 'nubia'
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'MMX_2.2.0_lavender_21.8.25_v12-11.zip'
+        default: 'Asus_Rog_Phone_3_A11.zip'
 
 
 
