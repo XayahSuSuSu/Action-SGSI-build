@@ -6,19 +6,23 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://www.priiiiyocloud.workers.dev/0://WW_ZS661KS_18.0410.2106.138_M3.35.19.16-ASUS_1.1.5_Phone-user.raw.zip'
+        default: 'https://hugeota.d.miui.com/21.5.31/miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'update.zip'
+        default: 'miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
-        default: 'nubia'
+        default: 'miui'
+      SGSI_TYPE:
+        description: 'SGSI_TYPE(AB or A)'
+        required: true
+        default: 'AB'
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
-        default: 'WW_ZS661KS_18.0410.2106.138_M3.35.19.16-ASUS_1.1.5_Phone-user.raw.zip'
+        default: 'SGSI.zip'
 
 
 
@@ -28,7 +32,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Get the source code of this warehouse...
+      - name: Get the source code of this repositorie...
         uses: actions/checkout@main
 
       - name: Get variable configuration...
@@ -74,8 +78,19 @@ jobs:
           java -version
 
       - name: Make AB type GSI‌‌...
+        if: ${{ github.event.inputs.SGSI_TYPE }} == 'AB'
         run: |
           sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/make.sh AB << EOF
+          ${{ github.event.inputs.ZIP_NAME }}
+          y
+          y
+          ${{ github.event.inputs.OS_TYPE }}
+          y
+
+      - name: Make A-only type GSI‌‌...
+        if: ${{ github.event.inputs.SGSI_TYPE }} == 'A'
+        run: |
+          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/make.sh A << EOF
           ${{ github.event.inputs.ZIP_NAME }}
           y
           y
