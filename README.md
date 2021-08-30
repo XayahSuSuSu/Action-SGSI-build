@@ -9,6 +9,8 @@
 > Current version: [v11](https://github.com/xiaoxindada/SGSI-build-tool/tree/11)
 >
 > Note: If the message fails and when downloading ROM... Error: Process completed with exit code 127. It is a server network problem, please try again
+>
+> [中文版](https://github.com/XayahSuSuSu/Action-SGSI-build/blob/main/README_CN.md)
 
 ## Quick start
 
