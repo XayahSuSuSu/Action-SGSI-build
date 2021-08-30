@@ -67,7 +67,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build
           mkdir ./tmp
-          curl "${{ github.event.inputs.ROM_URL }}" --output "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}"
+          wget -U "Mozilla/5.0" ${{ github.event.inputs.ROM_URL }} -O "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/${{ github.event.inputs.ZIP_NAME }}"
           echo "zip_file: $(ls "$GITHUB_WORKSPACE/Tool-SGSI-build/tmp/")"
 
       - name: Configuration tool environment...
