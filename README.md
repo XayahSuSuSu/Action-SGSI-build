@@ -1,3 +1,7 @@
+<div align="center">
+	<span style="font-weight: bold"> English | <a href=README_CN.md> 中文 </a> </span>
+</div>
+
 # Action-SGSI-build
 
 > Adapt to Android R
