@@ -14,7 +14,7 @@ on:
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+        default: 'miui_NABU_V12.5.9.0.RKXCNXM_670a8aa2a8_11.0.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
