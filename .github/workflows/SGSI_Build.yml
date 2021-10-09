@@ -6,11 +6,11 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://download.c.realme.com/osupdate/RMX1851_11_OTA_1130_all_iuygSyEV1LmI.ozip'
+        default: 'https://hugeota.d.miui.com/21.9.28/miui_CRUX_21.9.28_18d8eee9c2_11.0.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'RMX1851_11_OTA_1130_all_iuygSyEV1LmI.ozip'
+        default: 'miui_CRUX_21.9.28_18d8eee9c2_11.0.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
