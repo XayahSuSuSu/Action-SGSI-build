@@ -6,11 +6,11 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'https://hugeota.d.miui.com/21.5.31/miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+        default: 'https://bigota.d.miui.com/21.10.20/miui_MONA_21.10.20_c36b55471b_11.0.zip '
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+        default: 'miui_civi12.5.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
