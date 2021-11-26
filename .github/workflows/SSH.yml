@@ -1,0 +1,12 @@
+name: SSH
+
+on:
+  workflow_dispatch:
+   
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
