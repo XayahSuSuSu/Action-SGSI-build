@@ -1,0 +1,42 @@
+name: SGSI_Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      ROM_URL:
+        description: 'ROM_URL'
+        required: true
+        default: 'https://aab74e35bfcgmtytqvxqhk4mvo2vc888.node.ppio.cloud:25084/fsa167af8c.a.bdydns.com/1435501072/Firmware/Flyme/16s_Pro/8.1.5.4/cn/20220512192427/d481cb0d/update.zip?f_ver=v1&max_age=7776000&r=WhoAQkt2Y2FXJSovRyoWLBwDEVtCOWItXiF3BFk5CT5THBEdfiA1I1RjaXRDFDQ7XUFMHAlieWAFYzssH3lUewBeQQMKfXV8BX5vbVR%2FXHhRDERWFzk8KlA4PWxKIhRdHhFcWygif148PSxTLwp4&ppiouid=62a3f864a193d9000131847b27bc6fad&ppio_auth=62a3f864__0_7241a85907b2d53e981f1abad59dacf4'
+      ZIP_NAME:
+        description: 'ZIP_NAME'
+        required: true
+        default:'Flyme8.zip'
+      OS_TYPE:
+        description: 'OS_TYPE'
+        required: true
+        default: 'Flyme'
+      SGSI_TYPE:
+        description: 'SGSI_TYPE(AB, A, or BOTH)'
+        required: true
+        default: 'AB'
+      REPACK_NAME:
+        description: 'REPACK_NAME'
+        required: true
+        default: 'SGSI.zip'
+
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Get the source code of this repositorie...
+        uses: actions/checkout@main
+
+      - name: Get variable configuration...
+        run: |
+          echo "BUILD_TIME=$(date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
+
+      - name: Clean up the environme
