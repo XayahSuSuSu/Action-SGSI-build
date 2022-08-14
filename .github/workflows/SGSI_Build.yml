@@ -130,7 +130,7 @@ jobs:
           echo "--------------------------------------"
           ls upload_aonly
           echo "--------------------------------------"
-          if [ $(ls -l AONLY_${{ github.event.inputs.REPACK_NAME }} | awk '{print $5}') -gt 2147483647 ]; then tar cvzpf - AONLY_${{ github.event.inputs.REPACK_NAME }} | split -d -b 1024m - upload_aonly/AONLY_${{ github.event.inputs.REPACK_NAME }}; else mv AONLY_${{ github.event.inputs.REPACK_NAME }} upload_aonly/AONLY_${{ github.event.inputs.REPACK_NAME }}; fi
+          if [ $(ls -l AONLY_${{ github.event.inputs.REPACK_NAME }} | awk '{print $5}') -gt 2147483647 ]; then tar cvzpf - AONLY_${{ github.event.inputs.REPACK_NAME }} | split -d -b 2048m - upload_aonly/AONLY_${{ github.event.inputs.REPACK_NAME }}; else mv AONLY_${{ github.event.inputs.REPACK_NAME }} upload_aonly/AONLY_${{ github.event.inputs.REPACK_NAME }}; fi
           echo "--------------------------------------"
           ls upload_aonly
           echo "--------------------------------------"
