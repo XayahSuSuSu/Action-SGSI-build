@@ -6,11 +6,11 @@ on:
       ROM_URL:
         description: 'ROM_URL'
         required: true
-        default: 'http://xiaomi.baishancdnx.cn/xdispatchdf684bc078f0523b/bigota.d.miui.com/V14.0.18.0.TMNCNXM/miui_MONDRIAN_V14.0.18.0.TMNCNXM_083f307903_13.0.zip'
+        default: 'https://bigota.d.miui.com/V14.0.21.0.TMNCNXM/miui_MONDRIAN_V14.0.21.0.TMNCNXM_daa2975e16_13.0.zip'
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+        default: 'miui_MONDRIAN_V14.0.21.0.TMNCNXM_daa2975e16_13.0.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
