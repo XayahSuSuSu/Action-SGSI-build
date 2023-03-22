@@ -92,8 +92,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build
           pwd
-          zip -r AB_${{ github.event.inputs.REPACK_NAME }} SGSI/*
-          ls "AB_${{ github.event.inputs.REPACK_NAME }}"
+          zip -r AB_${{ github.event.inputs.ZIP_NAME }} SGSI/*
+          ls "AB_${{ github.event.inputs.OS_NAME }}"
           echo "--------------------------------------"
           ls
           echo "--------------------------------------"
@@ -106,34 +106,6 @@ jobs:
           ls upload_ab
           echo "--------------------------------------"
 
-      - name: Make A-only type GSI‌‌...
-        if: ${{ github.event.inputs.SGSI_TYPE }} == 'A' || ${{ github.event.inputs.SGSI_TYPE }} == 'BOTH'
-        run: |
-          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/make.sh A << EOF
-          ${{ github.event.inputs.ZIP_NAME }}
-          y
-          y
-          ${{ github.event.inputs.OS_TYPE }}
-          y
-
-      - name: Packing(A-only)...
-        if: ${{ github.event.inputs.SGSI_TYPE }} == 'A' || ${{ github.event.inputs.SGSI_TYPE }} == 'BOTH'
-        run: |
-          cd $GITHUB_WORKSPACE/Tool-SGSI-build
-          pwd
-          zip -r AONLY_${{ github.event.inputs.REPACK_NAME }} SGSI/*
-          ls "AONLY_${{ github.event.inputs.REPACK_NAME }}"
-          echo "--------------------------------------"
-          ls
-          echo "--------------------------------------"
-          mkdir upload_aonly
-          echo "--------------------------------------"
-          ls upload_aonly
-          echo "--------------------------------------"
-          if [ $(ls -l AONLY_${{ github.event.inputs.REPACK_NAME }} | awk '{print $5}') -gt 2147483647 ]; then tar cvzpf - AONLY_${{ github.event.inputs.REPACK_NAME }} | split -d -b 1024m - upload_aonly/AONLY_${{ github.event.inputs.REPACK_NAME }}; else mv AONLY_${{ github.event.inputs.REPACK_NAME }} upload_aonly/AONLY_${{ github.event.inputs.REPACK_NAME }}; fi
-          echo "--------------------------------------"
-          ls upload_aonly
-          echo "--------------------------------------"
 
       - name: Upload to Release‌‌...
         uses: ncipollo/release-action@v1.8.0
